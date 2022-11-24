@@ -4,5 +4,6 @@
         <page name='01. Types'/>
         <page name='02. Statements'/>
         <page name='03. Functions'/>
+        <page name='04. Structs'/>
     </pages>
 </playground>
