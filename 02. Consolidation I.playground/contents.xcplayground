@@ -5,5 +5,8 @@
         <page name='02. Statements'/>
         <page name='03. Functions'/>
         <page name='04. Structs'/>
+        <page name='05. Classes'/>
+        <page name='06. Protocols'/>
+        <page name='07. Optionals'/>
     </pages>
 </playground>
