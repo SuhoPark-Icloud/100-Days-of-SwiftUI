@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    // 프로퍼티를 그저 보여주는 것과
-    // 프로퍼티에 값을 대입할 수 있는 것을 구분함
-    @State private var name = ""
+    let students = ["Harry", "Hermione", "Ron"]
+    @State private var selectedStudent = "Ron"
     
+    // ForEach: 배열이나 범위동안 많은 view를 생성할 수 있는 전용 view
     var body: some View {
-        Form {
-            //$: 양방향 바인딩(@State 된 것을 보여줄 뿐만 아니라, 기록된 것을 프로퍼티에 저장)
-            TextField("Enter your name", text: $name)
-            
-            // 여기서는 양방향 바인딩이 아닌, 그저 변수를 보여줄 뿐이기 때문에 $가 제외
-            Text("Your name is \(name)")
+        NavigationView {
+            Form {
+                Picker("Select your student", selection: $selectedStudent) {
+                    // id: 배열의 각 항목을 고유하게 만드는 식별자
+                    // \.self: 문자열 그 자체(중복 문자열이 있으면 X)
+                    ForEach(students, id: \.self) {
+                        Text($0)
+                    }
+                }
+            }
         }
     }
 }
