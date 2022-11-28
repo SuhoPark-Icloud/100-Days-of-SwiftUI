@@ -7,23 +7,19 @@
 
 import SwiftUI
 
-// View protocol을 준수하는 새로운 구조체 정의
-// 화면에 보여지기 위해 무조건 적용되어야 하는 프로토콜
+// ContentView는 상수로 생성될 수 있는 구조체
+//  => 값을 자유롭게 변경할 수 없다.
+//  => 게다가 계산된 속성은 mutating으로 만들 수도 없다.
 struct ContentView: View {
-    // computed property
-    // some View: layout인 View 프로토콜을 준수하는 것을 반환한다는 의미
-    // 그러나 모든 항목들을 완벽히 준수할 필요는 없다는 의미의 some
-    // View protocol의 유일한 요구사항은 var body: some View 프로퍼티를 갖는 것
+    // 속성 래퍼(property wrapper)
+    // 속성 앞에 배치할 수 있는 특수 속성
+    // @State: 하나의 view에서 저장되는 간단한 속성을 위해 특별히 설계
+    //  (private와 함께 사용)
+    @State private var tapCount = 0
+    
     var body: some View {
-        NavigationView {
-            Form {
-                // Section은 구분감을 준다.
-                Section {
-                    Text("Hello, world!")
-                }
-            }
-            .navigationTitle("SwiftUI")
-            .navigationBarTitleDisplayMode(.inline)
+        Button("Tap Count: \(tapCount)") {
+            self.tapCount += 1
         }
     }
 }
