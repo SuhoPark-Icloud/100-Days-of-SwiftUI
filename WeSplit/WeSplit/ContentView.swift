@@ -7,19 +7,18 @@
 
 import SwiftUI
 
-// ContentView는 상수로 생성될 수 있는 구조체
-//  => 값을 자유롭게 변경할 수 없다.
-//  => 게다가 계산된 속성은 mutating으로 만들 수도 없다.
 struct ContentView: View {
-    // 속성 래퍼(property wrapper)
-    // 속성 앞에 배치할 수 있는 특수 속성
-    // @State: 하나의 view에서 저장되는 간단한 속성을 위해 특별히 설계
-    //  (private와 함께 사용)
-    @State private var tapCount = 0
+    // 프로퍼티를 그저 보여주는 것과
+    // 프로퍼티에 값을 대입할 수 있는 것을 구분함
+    @State private var name = ""
     
     var body: some View {
-        Button("Tap Count: \(tapCount)") {
-            self.tapCount += 1
+        Form {
+            //$: 양방향 바인딩(@State 된 것을 보여줄 뿐만 아니라, 기록된 것을 프로퍼티에 저장)
+            TextField("Enter your name", text: $name)
+            
+            // 여기서는 양방향 바인딩이 아닌, 그저 변수를 보여줄 뿐이기 때문에 $가 제외
+            Text("Your name is \(name)")
         }
     }
 }
