@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var checkAmount = 0.0
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 20
+    @FocusState private var amountIsFocused: Bool
+    
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
@@ -38,6 +40,7 @@ struct ContentView: View {
                 Section {
                     TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         .keyboardType(.decimalPad) // 키보드를 강제하는 법
+                        .focused($amountIsFocused)
                     
                     Picker("Number of People", selection: $numberOfPeople) {
                         ForEach(2 ..< 100) {
@@ -63,9 +66,22 @@ struct ContentView: View {
                     Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                 }
             }
-            .navigationTitle("WeSplit")
             // Form의 수정자로 사용하는 이유: NavigationView가 많은 View를 표시할 수 있기 때문
             // 내부의 항목에 제목을 첨부하면 iOS에서 제목을 자유롭게 변경할 수 있음
+            .navigationTitle("WeSplit")
+            // toolbar(): 도구 모음 항목을 지정할 수 있음(상단의 탐색 모음, 하단의 특수 도구 모음 영역 등 다양한 위치에 사용)
+            .toolbar {
+                // 특정 위치에 하나 이상의 버튼을 배치할 수 있음
+                // 키보드 도구 모음(키보드에 연결된 도구 모음)을 지정하여 키보드와 함께 자동으로 나타남
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button("Done") {
+                        // false로 설정하면서 키보드가 닫히게 함
+                        amountIsFocused = false
+                    }
+                }
+            }
         }
     }
 }
