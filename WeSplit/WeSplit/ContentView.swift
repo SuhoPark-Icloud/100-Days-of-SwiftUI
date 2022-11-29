@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    let students = ["Harry", "Hermione", "Ron"]
-    @State private var selectedStudent = "Ron"
+    @State private var checkAmount = 0.0
+    @State private var numberOfPeople = 2
+    @State private var tipPercentage = 20
+    let tipPercentages = [10, 15, 20, 25, 0]
     
-    // ForEach: 배열이나 범위동안 많은 view를 생성할 수 있는 전용 view
     var body: some View {
-        NavigationView {
-            Form {
-                Picker("Select your student", selection: $selectedStudent) {
-                    // id: 배열의 각 항목을 고유하게 만드는 식별자
-                    // \.self: 문자열 그 자체(중복 문자열이 있으면 X)
-                    ForEach(students, id: \.self) {
-                        Text($0)
-                    }
-                }
+        Form {
+            // $checkAmount를 text에 바로 입력하는 것은 String 형식과 일치하지 않아서 불가
+            // value: , format: init으로 수행 가능
+            // "USD를 사용하지 않는 사람이 많음
+            // Locale: 사용자의 모든 지역 설정을 저장하는 iOS의 구조체
+            Section {
+                TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    .keyboardType(.decimalPad) // 키보드를 강제하는 법
+            }
+            
+            Section {
+                Text(checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
             }
         }
     }
