@@ -16,15 +16,26 @@ struct ContentView: View {
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
+    var grandTotal: Double {
+        let tipSelection = Double(tipPercentage)
+        let tipValue = checkAmount / 100 * tipSelection
+        
+        return checkAmount + tipValue
+    }
+    
     var totalPerPerson: Double {
         let peopleCount = Double(numberOfPeople + 2)
-        let tipSelection = Double(tipPercentage)
-        
-        let tipValue = checkAmount / 100 * tipSelection
-        let grandTotal = checkAmount + tipValue
         let amountPerPerson = grandTotal / peopleCount
         
         return amountPerPerson
+    }
+    
+    var currency: String? {
+        Locale.current.currency?.identifier
+    }
+    
+    var currentCurrency: FloatingPointFormatStyle<Double>.Currency {
+        .currency(code: Locale.current.currency?.identifier ?? "USD")
     }
     
     var body: some View {
@@ -38,7 +49,7 @@ struct ContentView: View {
                 // "USD를 사용하지 않는 사람이 많음
                 // Locale: 사용자의 모든 지역 설정을 저장하는 iOS의 구조체
                 Section {
-                    TextField("Amount", value: $checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    TextField("Amount", value: $checkAmount, format: currentCurrency)
                         .keyboardType(.decimalPad) // 키보드를 강제하는 법
                         .focused($amountIsFocused)
                     
@@ -48,22 +59,27 @@ struct ContentView: View {
                         }
                     }
                 }
-                
+
                 Section {
                     Picker("Tip percentage", selection: $tipPercentage) {
-                        ForEach(tipPercentages, id: \.self) {
-                            Text($0, format: .percent)
+                        ForEach(0 ..< 101) {
+                            Text("\($0)%")
                         }
                     }
-                    .pickerStyle(.segmented)
                 } header: {
-                    // 두 번째 후행 클로저 사용
                     Text("How much tip do you want to leave?")
                 }
-
                 
                 Section {
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    Text(totalPerPerson, format: currentCurrency)
+                } header: {
+                    Text("Amount per person")
+                }
+                
+                Section {
+                    Text(grandTotal, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                } header: {
+                    Text("Total amount for the check")
                 }
             }
             // Form의 수정자로 사용하는 이유: NavigationView가 많은 View를 표시할 수 있기 때문
