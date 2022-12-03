@@ -8,42 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Button("Button 1") {}
-                .buttonStyle(.bordered)
-            Button("Button 2", role: .destructive) {}
-                .buttonStyle(.bordered)
-            Button("Button 3") {}
-                .buttonStyle(.borderedProminent)
-                .tint(.mint)
-            Button("Button 4", role: .destructive) {}
-                .buttonStyle(.borderedProminent)
-            
-            // 사용자 지정 버튼
-            Button {
-                print("Button was tapped")
-            } label: {
-                Text("Tap me!")
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(.red)
-            }
-            
-            // 이 방식은 이미지(Image)를 단추에 통합하려는 경우에 주로 사용
-            Button {
-                print("Edit button was tapped")
-            } label: {
-//                Image(systemName: "pencil")
-                // Label: 이미지와 텍스트를 동시에 사용하고자 할 때 사용
-                Label("Edit", systemImage: "pencil")
-            }
-
-        }
-    }
+    @State private var showingAlert = false
     
-    func executeDelete() {
-        print("Now deleting")
+    var body: some View {
+        Button("Show Alert") {
+            showingAlert = true
+        }
+        // 수정자가 사용되는 위치는 중요하지 X
+        // 모든 작업은 경고가 존재하고, showingAlert가 true일 때 경고 표시
+        .alert("Important message", isPresented: $showingAlert) {
+            // alert 내부 모든 버튼은 자동으로 alert 해제
+//            Button("Delete", role: .destructive) {}
+//            Button("Cancel", role: .cancel) {}
+            Button("OK", role: .cancel) {}
+        } message: {
+            // 두 번째 후행 클로저를 사용하여 제목 아래 메시지 추가 가능
+            Text("Please read this.")
+        }
     }
 }
 
