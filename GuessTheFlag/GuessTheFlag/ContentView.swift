@@ -9,23 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(spacing: 20) {
-            HStack(spacing: 20) {
-                Text("1")
-                Text("2")
-                Text("2")
-            }
-            HStack(spacing: 20) {
-                Text("4")
-                Text("5")
-                Text("6")
-            }
-            HStack(spacing: 20) {
-                Text("7")
-                Text("8")
-                Text("9")
-            }
+        ZStack {
+            // Color 그 자체도 View
+            Color.red
+//                .frame(width: 200, height: 200)
+                .frame(minWidth: 200, maxWidth: .infinity, minHeight: 200)
+            // 의미론적인 색상
+            Color.primary //: 검은색/흰색(일반모드/다크모드)
+            Color.secondary // 어두운회색/밝은회색(일반모드/다크모드)
+            
+            // RGB 색상
+            Color(red: 1, green: 0.8, blue: 0)
+            
+            Text("Your content")
         }
+        // 안전영역 아래로 채우기
+        .ignoresSafeArea()
     }
 }
 
