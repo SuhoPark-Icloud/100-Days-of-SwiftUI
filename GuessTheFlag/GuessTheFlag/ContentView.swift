@@ -21,7 +21,6 @@ struct ContentView: View {
     @State private var totalScore = 0
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
-    // shuffled(): 자동으로 배열 순서를 섞음
     @State private var correctAnswer = Int.random(in: 0...2)
     @State private var selectedCountry = ""
     
@@ -35,8 +34,6 @@ struct ContentView: View {
             
             
             VStack {
-                // 크기가 큰 화면에서 각 항목들이 너무 벌어지지 않게끔 하는 효과
-                // 실제로 크기가 작은 화면에서는 그 효과가 미비하게 나타날 수 있다.
                 Spacer()
                 
                 Text("Guess the Flag")
@@ -45,12 +42,9 @@ struct ContentView: View {
                 
                 VStack(spacing: 15) {
                     VStack {
-                        // .weight(): 요청하는 글꼴에 수정자를 추가하여 세밀하게 제어 가능
                         Text("Tap the flag of")
                             .foregroundStyle(.secondary)
                             .font(.subheadline.weight(.heavy))
-                        
-                        // .largeTitle: iOS에서 제공하는 가장 큰 내장 글꼴
                         Text(countries[correctAnswer])
                             .font(.largeTitle.weight(.semibold))
                         
@@ -61,9 +55,9 @@ struct ContentView: View {
                             flagTapped(number)
                         } label: {
                             Image(countries[number])
-                                .renderingMode(.original) // 원래 이미지 픽셀 그대로 렌더링
-                                .clipShape(Capsule()) // 캡슐 이미지 형태로 수정
-                                .shadow(radius: 5) // 그림자 설정
+                                .renderingMode(.original)
+                                .clipShape(Capsule())
+                                .shadow(radius: 5)
                         }
                     }
                 }
@@ -87,17 +81,19 @@ struct ContentView: View {
             .padding()
         }
         .alert(alertTitle, isPresented: $isCorrect) {
-            Button("Continue", action: askQuestionWhenCorrect)
+            Button("Continue", action: prepareWhenCorrect)
         } message: {
             Text("You've got 10 points.")
         }
         .alert(alertTitle, isPresented: $isWrong) {
-            Button("Continue", action: askQuestionWhenWrong)
+            Button("Continue", action: prepareWhenWrong)
         } message: {
             Text("That's the flag of \(selectedCountry).")
         }
         .alert(alertTitle, isPresented: $isGameCompleted) {
-            Button("Continue") {
+            Button("Restart") {
+                prepareForNextRound()
+                round = 1
                 totalScore = 0
             }
         } message: {
@@ -107,40 +103,40 @@ struct ContentView: View {
     
     func flagTapped(_ number: Int) {
         selectedCountry = countries[number]
-        
-        if number == correctAnswer {
-            alertTitle = "Correct!"
-            isCorrect = true
+
+        if (round < maxRound) {
+            if number == correctAnswer {
+                alertTitle = "Correct!"
+                isCorrect = true
+            } else {
+                alertTitle = "Wrong!"
+                isWrong = true
+            }
         } else {
-            alertTitle = "Wrong!"
-            isWrong = true
-        }
-    }
-    
-    func prepareForNextRound() {
-        countries.shuffle()
-        correctAnswer = Int.random(in: 0...2)
-        round += 1
-    }
-    
-    func prepareForFinalRound() {
-        if (maxRound + 1) == round {
-            alertTitle = "Rounds Complete!"
-            round = 1
+            alertTitle = "Complete!"
+            if number == correctAnswer {
+                totalScore += correctScore
+            } else {
+                totalScore += wrongScore
+            }
             isGameCompleted = true
         }
     }
     
-    func askQuestionWhenCorrect() {
-        prepareForNextRound()
-        totalScore += correctScore
-        prepareForFinalRound()
+    func prepareForNextRound() {
+        round += 1
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
     }
     
-    func askQuestionWhenWrong() {
+    func prepareWhenCorrect() {
+        prepareForNextRound()
+        totalScore += correctScore
+    }
+    
+    func prepareWhenWrong() {
         prepareForNextRound()
         totalScore += wrongScore
-        prepareForFinalRound()
     }
 }
 
