@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showingScore = false
-    @State private var scoreTitle = ""
+    @State private var alertTitle = ""
+    @State private var isCorrect = false
+    @State private var isWrong = false
+    @State private var isGameCompleted = false
+    
+    let maxRound = 8
+    @State private var round = 1
+    
+    private let correctScore = 10
+    private let wrongScore = -5
+    @State private var totalScore = 0
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     // shuffled(): 자동으로 배열 순서를 섞음
     @State private var correctAnswer = Int.random(in: 0...2)
+    @State private var selectedCountry = ""
     
     var body: some View {
         ZStack {
@@ -65,7 +75,10 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
                 
-                Text("Score: ???")
+                Text("Round \(round) / \(maxRound)")
+                    .foregroundColor(.white)
+                    .font(.headline)
+                Text("Score: \(totalScore)")
                     .foregroundColor(.white)
                     .font(.title.bold())
                 
@@ -73,26 +86,61 @@ struct ContentView: View {
             }
             .padding()
         }
-        .alert(scoreTitle, isPresented: $showingScore) {
-            Button("Continue", action: askQuestion)
+        .alert(alertTitle, isPresented: $isCorrect) {
+            Button("Continue", action: askQuestionWhenCorrect)
         } message: {
-            Text("Your score is ???")
+            Text("You've got 10 points.")
+        }
+        .alert(alertTitle, isPresented: $isWrong) {
+            Button("Continue", action: askQuestionWhenWrong)
+        } message: {
+            Text("That's the flag of \(selectedCountry).")
+        }
+        .alert(alertTitle, isPresented: $isGameCompleted) {
+            Button("Continue") {
+                totalScore = 0
+            }
+        } message: {
+            Text("Your final score is \(totalScore)!")
         }
     }
     
     func flagTapped(_ number: Int) {
-        if number == correctAnswer {
-            scoreTitle = "Correct"
-        } else {
-            scoreTitle = "Wrong"
-        }
+        selectedCountry = countries[number]
         
-        showingScore = true
+        if number == correctAnswer {
+            alertTitle = "Correct!"
+            isCorrect = true
+        } else {
+            alertTitle = "Wrong!"
+            isWrong = true
+        }
     }
     
-    func askQuestion() {
+    func prepareForNextRound() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        round += 1
+    }
+    
+    func prepareForFinalRound() {
+        if (maxRound + 1) == round {
+            alertTitle = "Rounds Complete!"
+            round = 1
+            isGameCompleted = true
+        }
+    }
+    
+    func askQuestionWhenCorrect() {
+        prepareForNextRound()
+        totalScore += correctScore
+        prepareForFinalRound()
+    }
+    
+    func askQuestionWhenWrong() {
+        prepareForNextRound()
+        totalScore += wrongScore
+        prepareForFinalRound()
     }
 }
 
