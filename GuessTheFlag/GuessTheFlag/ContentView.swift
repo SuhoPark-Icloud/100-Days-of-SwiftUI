@@ -17,15 +17,21 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.blue
+            LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
             VStack(spacing: 30) {
                 VStack {
+                    // .weight(): 요청하는 글꼴에 수정자를 추가하여 세밀하게 제어 가능
                     Text("Tap the flag of")
                         .foregroundColor(.white)
+                        .font(.subheadline.weight(.heavy))
+                    
+                    // .largeTitle: iOS에서 제공하는 가장 큰 내장 글꼴
                     Text(countries[correctAnswer])
                         .foregroundColor(.white)
+                        .font(.largeTitle.weight(.semibold))
+                    
                 }
                 
                 ForEach(0..<3) { number in
@@ -33,7 +39,9 @@ struct ContentView: View {
                         flagTapped(number)
                     } label: {
                         Image(countries[number])
-                            .renderingMode(.original)
+                            .renderingMode(.original) // 원래 이미지 픽셀 그대로 렌더링
+                            .clipShape(Capsule()) // 캡슐 이미지 형태로 수정
+                            .shadow(color: .primary, radius: 5) // 그림자 설정
                     }
                 }
             }
