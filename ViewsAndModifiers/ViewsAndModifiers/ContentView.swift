@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var useRedText = false
+    
     var body: some View {
         Button("Hello World") {
-            print(type(of: self.body))
+            useRedText.toggle()
         }
-        .frame(width: 200, height: 200)
-        .background(.red)
+        .foregroundColor(useRedText ? .red: .blue)
     }
 }
 struct ContentView_Previews: PreviewProvider {
