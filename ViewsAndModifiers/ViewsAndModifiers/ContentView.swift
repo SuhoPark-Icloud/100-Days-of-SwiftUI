@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var useRedText = false
-    
     var body: some View {
-        Button("Hello World") {
-            useRedText.toggle()
+        VStack {
+            Text("Gryffindor")
+                .font(.largeTitle)
+            // 개별 항목에 설정한 내용이 override됨
+                .blur(radius: 0)
+            // blur는 environment modifier가 아니기 때문에
+            // VStack에 있는 내용이 덮어 씌워진다.
+            Text("Hufflepuff")
+            Text("Ravenclaw")
+            Text("Slytherin")
         }
-        .foregroundColor(useRedText ? .red: .blue)
+        .font(.title) //environment modifier
+        .blur(radius: 5)
     }
 }
 struct ContentView_Previews: PreviewProvider {
