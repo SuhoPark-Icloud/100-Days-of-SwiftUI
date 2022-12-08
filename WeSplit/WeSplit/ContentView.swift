@@ -12,10 +12,7 @@ struct ContentView: View {
     @State private var numberOfPeople = 2
     @State private var tipPercentage = 20
     @FocusState private var amountIsFocused: Bool
-    
-    
-    let tipPercentages = [10, 15, 20, 25, 0]
-    
+
     var grandTotal: Double {
         let tipSelection = Double(tipPercentage)
         let tipValue = checkAmount / 100 * tipSelection
@@ -78,6 +75,7 @@ struct ContentView: View {
                 
                 Section {
                     Text(grandTotal, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        .foregroundColor(tipPercentage == 0 ? .red : .primary)
                 } header: {
                     Text("Total amount for the check")
                 }
