@@ -7,24 +7,28 @@
 
 import SwiftUI
 
-struct ContentView: View {
-//    let motto1 = Text("Draco dormiens")
-    var motto1: some View {
-        Text("Draco dormiens")
-    }
-    let motto2 = Text("nunquam titillandus")
-    
-    // 별도의 view는 body와 달리 여러개의 속성을 자동으로 정렬하는 기능이 X
-    // 내부에 VStack이나 Group을 추가하는 것도 방법이지만
-    // @ViewBuilder를 추가하는 방법 권장
-    @ViewBuilder var spells: some View {
-        Text("Lumos")
-        Text("Obliviate")
-    }
+// View를 별도의 struct로 구성할 수 있음
+// 별도 View로 분할하는 것에 대한 성능 저하가 거의 없다.
+struct CapsuleText: View {
+    var text: String
     
     var body: some View {
-        VStack {
-            spells
+        Text(text)
+            .font(.largeTitle)
+            .padding()
+            .foregroundColor(.white)
+            .background(.blue)
+            .clipShape(Capsule())
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            CapsuleText(text: "First")
+                .foregroundColor(.white)
+            CapsuleText(text: "Second")
+                .foregroundColor(.yellow)
         }
     }
 }
