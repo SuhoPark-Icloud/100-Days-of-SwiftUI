@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+//    let motto1 = Text("Draco dormiens")
+    var motto1: some View {
+        Text("Draco dormiens")
+    }
+    let motto2 = Text("nunquam titillandus")
+    
+    // 별도의 view는 body와 달리 여러개의 속성을 자동으로 정렬하는 기능이 X
+    // 내부에 VStack이나 Group을 추가하는 것도 방법이지만
+    // @ViewBuilder를 추가하는 방법 권장
+    @ViewBuilder var spells: some View {
+        Text("Lumos")
+        Text("Obliviate")
+    }
+    
     var body: some View {
         VStack {
-            Text("Gryffindor")
-                .font(.largeTitle)
-            // 개별 항목에 설정한 내용이 override됨
-                .blur(radius: 0)
-            // blur는 environment modifier가 아니기 때문에
-            // VStack에 있는 내용이 덮어 씌워진다.
-            Text("Hufflepuff")
-            Text("Ravenclaw")
-            Text("Slytherin")
+            spells
         }
-        .font(.title) //environment modifier
-        .blur(radius: 5)
     }
 }
 struct ContentView_Previews: PreviewProvider {
