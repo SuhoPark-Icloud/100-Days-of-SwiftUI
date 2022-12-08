@@ -7,29 +7,55 @@
 
 import SwiftUI
 
-// View를 별도의 struct로 구성할 수 있음
-// 별도 View로 분할하는 것에 대한 성능 저하가 거의 없다.
-struct CapsuleText: View {
+// ViewModifier를 활용하여 새로운 View를 만들어 낼 수도 있다.
+struct Watermakr: ViewModifier {
     var text: String
     
-    var body: some View {
-        Text(text)
+    func body(content: Content) -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            content
+            
+            Text(text)
+                .font(.caption)
+                .foregroundColor(.white)
+                .padding(5)
+                .background(.black)
+        }
+    }
+}
+
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
             .font(.largeTitle)
-            .padding()
             .foregroundColor(.white)
+            .padding()
             .background(.blue)
-            .clipShape(Capsule())
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+
+extension View {
+    func titleStyle() -> some View {
+        modifier(Title())
+    }
+    
+    func watermarked(with text: String) -> some View {
+        modifier(Watermakr(text: text))
     }
 }
 
 struct ContentView: View {
     var body: some View {
-        VStack(spacing: 10) {
-            CapsuleText(text: "First")
-                .foregroundColor(.white)
-            CapsuleText(text: "Second")
-                .foregroundColor(.yellow)
-        }
+        Text("Hello, world!")
+//            .modifier(Title())
+        // ViewModifier로 구성한 객체를 생성하여 수정자 적용 가능
+            .titleStyle()
+        // extension을 활용하여 기존의 다른 수정자처럼 구성 가능
+        
+        Color.blue
+            .frame(width: 300, height: 200)
+            .watermarked(with: "Hacking with Swift")
     }
 }
 struct ContentView_Previews: PreviewProvider {
