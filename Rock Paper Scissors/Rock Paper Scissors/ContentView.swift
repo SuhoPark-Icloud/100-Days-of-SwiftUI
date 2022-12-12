@@ -12,59 +12,101 @@ struct ContentView: View {
     let winMoves = ["🤚🏻", "✌🏻", "👊🏻"]
     let loseMoves = ["✌🏻", "👊🏻", "🤚🏻"]
     
+    @State private var round = 1
+    let maxRound = 10
+    
+    @State private var totalScore = 0
+    let correctScore = 10
+    let wrongScore = -5
+    
     @State private var aiPick = Int.random(in: 0...2)
     @State private var winOrLose = Bool.random()
     
-    @State private var showWinAlert = false
-    @State private var showLoseAlert = false
+    @State private var isCorrect = false
+    @State private var isWrong = false
+    @State private var isGameCompleted = false
     
     
     var body: some View {
         VStack {
+            Spacer()
+            if !isRoundCompleted() {
+                Text("Round \(round) / \(maxRound)")
+            } else {
+                Text("Round Complete!")
+            }
+            Spacer()
             Text(moves[aiPick])
+                .padding()
             Text(winOrLose ? "Win" : "Lose")
+                .padding()
             HStack {
                 ForEach(0..<3) { playerPick in
                     Button {
-                        determineWinOrLose(playerPick)
+                        correctOrWrong(playerPick)
                     } label: {
                         Text(moves[playerPick])
                     }
                 }
+                .padding()
             }
+            .padding()
+            Spacer()
+            
         }
         .font(.largeTitle)
-        .alert("Correct", isPresented: $showWinAlert) {
+        .alert("Correct", isPresented: $isCorrect) {
             Button("Continue") {
                 prepareGame()
             }
         }
-        .alert("Wrong", isPresented: $showLoseAlert) {
+        .alert("Wrong", isPresented: $isWrong) {
             Button("Continue") {
                 prepareGame()
             }
+        }
+        .alert("Complete", isPresented: $isGameCompleted) {
+            Button("Restart") {
+                round = 1
+                totalScore = 0
+            }
+        } message: {
+            Text("Your final score is \(totalScore)")
         }
     }
     
-    func determineWinOrLose(_ playerPick: Int) {
-        if winOrLose {
-            if winMoves[aiPick] == moves[playerPick] {
-                showWinAlert = true
-            } else {
-                showLoseAlert = true
-            }
+    func correctOrWrong(_ playerPick: Int) {
+        if (winOrLose ? winMoves[aiPick] : loseMoves[aiPick]) == moves[playerPick] {
+            isCorrect = true
         } else {
-            if loseMoves[aiPick] == moves[playerPick] {
-                showWinAlert = true
-            } else {
-                showLoseAlert = true
-            }
+            isWrong = true
         }
     }
     
     func prepareGame() {
-        aiPick = Int.random(in: 0...2)
-        winOrLose.toggle()
+        round += 1
+        
+        if isCorrect {
+            totalScore += correctScore
+        }
+        if isWrong {
+            totalScore += wrongScore
+        }
+        
+        if !isRoundCompleted() {
+            aiPick = Int.random(in: 0...2)
+            winOrLose.toggle()
+        } else {
+            isGameCompleted = true
+        }
+    }
+    
+    func isRoundCompleted() -> Bool {
+        if round == (maxRound + 1) {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
