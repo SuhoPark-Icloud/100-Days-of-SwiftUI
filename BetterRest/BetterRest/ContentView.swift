@@ -6,7 +6,6 @@
 //
 
 // Commit test
-// Commit test 2
 
 import CoreML
 import SwiftUI
