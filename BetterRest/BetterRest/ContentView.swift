@@ -31,37 +31,44 @@ struct ContentView: View {
         NavigationView {
             // VStack에서 Form으로 바꾸는 것만으로도 형태가 달라짐
             Form {
-                // Text와 그 다음 항목을 묶어서 그 사이에 가로줄이 생기지 않도록 설정
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("When do you want to wake up?")
-                        .font(.headline)
-                    
+                Section {
                     DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
                         .labelsHidden()
                         .onAppear {
                             // 15분 간격으로 조정하기 위해서 사용
                             UIDatePicker.appearance().minuteInterval = 15
                         }
+                } header: {
+                    Text("When do you want to wake up?")
                 }
                 
-                VStack(alignment: .leading, spacing: 0) {
-                    Text("Desired amount of sleep")
-                        .font(.headline)
-                    
+                Section {
                     Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+                } header: {
+                    Text("Desired amount of sleep")
                 }
                 
-                VStack(alignment: .leading, spacing: 0) {
+                Section {
+                    Picker("coffee", selection: $coffeeAmount) {
+                        ForEach(1..<22) { index in
+                            let coffeeCnt = index - 1
+                            Text("\(coffeeCnt) " + ((coffeeCnt <= 1) ? "cup" : "cups"))
+                        }
+                    }
+                    .labelsHidden()
+                } header: {
                     Text("Daily coffee intake")
-                        .font(.headline)
-                    
-                    Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...20)
                 }
+                
+                Section {
+                    Text(calculateBedtime())
+                        .font(.largeTitle)
+                } header: {
+                    Text("The recommended bedtime is")
+                }
+                
             }
             .navigationTitle("BetterRest")
-            .toolbar {
-                Button("Calculate", action: calculateBedtime)
-            }
             .alert(alertTitle, isPresented: $showingAlert) {
                 Button("OK") { }
             } message: {
@@ -70,7 +77,7 @@ struct ContentView: View {
         }
     }
     
-    func calculateBedtime() {
+    func calculateBedtime() -> String {
         do {
             let config = MLModelConfiguration()
             let model = try SleepCalculator(configuration: config)
@@ -83,14 +90,13 @@ struct ContentView: View {
             let prediction = try model.prediction(wake: Double(hour + minute), estimatedSleep: sleepAmount, coffee: Double(coffeeAmount))
             let sleepTime = wakeUp - prediction.actualSleep
             
-            alertTitle = "Your ideal bedtime is…"
-            alertMessage = sleepTime.formatted(date: .omitted, time: .shortened)
+            return sleepTime.formatted(date: .omitted, time: .shortened)
         } catch {
             alertTitle = "Error"
             alertMessage = "Sorry, there was a problem calculating your bedtime."
+            showingAlert = true
+            return ""
         }
-        
-        showingAlert = true
     }
 }
 
