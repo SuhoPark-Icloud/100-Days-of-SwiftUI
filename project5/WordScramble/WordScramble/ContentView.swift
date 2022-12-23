@@ -8,28 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    let people = ["Finn", "Leia", "Luke", "Rey"]
-    
     var body: some View {
-        List {
-            Text("Static Row")
-
-            ForEach(people, id: \.self) {
-                Button($0) {
-                    
-                }
-            }
-
-            Text("Static Row")
-        }
+        Text("Hello, world!")
     }
     
-    func loadFile() {
-        if let fileURL = Bundle.main.url(forResource: "some-file", withExtension: "txt") {
-            if let fileContents = try? String(contentsOf: fileURL) {
-                // we load the file into the string
-            }
-        }
+    func test() {
+        let word = "swift"
+        let checker = UITextChecker()
+        
+        let range = NSRange(location: 0, length: word.utf16.count)
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        
+        // Objective-C에는 옵셔널의 개념이 없었기 때문에 특수한 값인 NSNotFound을 통해 철자에 문제가 없는지 확인할 수 있음
+        let allGood = misspelledRange.location == NSNotFound
     }
 }
 
