@@ -15,10 +15,20 @@ struct ContentView: View {
             Text("Static Row")
 
             ForEach(people, id: \.self) {
-                Text($0)
+                Button($0) {
+                    
+                }
             }
 
             Text("Static Row")
+        }
+    }
+    
+    func loadFile() {
+        if let fileURL = Bundle.main.url(forResource: "some-file", withExtension: "txt") {
+            if let fileContents = try? String(contentsOf: fileURL) {
+                // we load the file into the string
+            }
         }
     }
 }
