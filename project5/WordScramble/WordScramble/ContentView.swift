@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var rootWord = ""
     @State private var newWord = ""
     
+    @State private var score = 0
+    
     @State private var errorTitle = ""
     @State private var errorMessage = ""
     @State private var showingError = false
@@ -19,6 +21,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
+                Text("Score: \(score)")
+                
                 Section {
                     TextField("Enter your word", text: $newWord)
                         .textInputAutocapitalization(.never)
@@ -34,6 +38,11 @@ struct ContentView: View {
                     }
                 }
             }
+            .toolbar(content: {
+                Button("Restart") {
+                    startGame()
+                }
+            })q
             .navigationTitle(rootWord)
             .onSubmit(addNewWord)
             .onAppear(perform: startGame)
@@ -48,6 +57,11 @@ struct ContentView: View {
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         guard answer.count > 0 else { return }
+        
+        guard isNotRootWord(word: answer) else {
+            wordError(title: "Word is start word", message: "You can't enter just our start word!")
+            return
+        }
         
         guard isOrigianl(word: answer) else {
             wordError(title: "Word used already", message: "Be more original!")
@@ -64,15 +78,24 @@ struct ContentView: View {
             return
         }
         
+        guard isLongEnough(word: answer) else {
+            wordError(title: "Word is short", message: "Enter a word longer than 2 letters")
+            return
+        }
+        
         // 애니메이션 적용
         withAnimation {
             // 0으로 설정하여 자동으로 목록 상단에 표시
+            score += answer.count
             usedWord.insert(answer, at: 0)
         }
         newWord = ""
     }
     
     func startGame() {
+        usedWord.removeAll()
+        score = 0
+        
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             if let startWords = try? String(contentsOf: startWordsURL) {
                 let allWords = startWords.components(separatedBy: "\n")
@@ -82,6 +105,10 @@ struct ContentView: View {
         }
         
         fatalError("Could nor load start.txt from bundle.")
+    }
+    
+    func isNotRootWord(word: String) -> Bool {
+        word != rootWord
     }
     
     // 기존 추가한 단어인지 확인
@@ -111,6 +138,14 @@ struct ContentView: View {
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
         
         return misspelledRange.location == NSNotFound
+    }
+    
+    func isLongEnough(word: String) -> Bool {
+        if word.count > 2 {
+            return true
+        } else {
+            return false
+        }
     }
     
     // 에러 제목과 내용을 채워 alert 창을 띄우기 위해 사용
