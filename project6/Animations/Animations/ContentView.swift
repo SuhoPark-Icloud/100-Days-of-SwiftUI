@@ -8,30 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var animationAmount = 1.0
+    @State private var animationAmount = 0.0
     
     var body: some View {
-        VStack {
-            // Binding animation
-            // View에 애니메이션을 설정하는 것이 아닌 바인딩된 값에 애니메이션 적용
-            Stepper("Scale amount", value: $animationAmount.animation(
-                // 특수 효과도 삽입 가능
-                .easeInOut(duration: 1)
-                .repeatCount(3, autoreverses: true)
-            ), in: 1...10)
-            
-            Spacer()
-            
-            // 버튼에는 .animation()을 적용하지 않았기 때문에 버튼을 눌렀을 때에는 애니메이션 적용 X
-            Button("Tap Me") {
-                animationAmount += 1
+        Button("Tap Me") {
+            // 상태 변형의 결과로 발생하는 변경 사항에 애니메이션 효과를 주도록 명시적 방법
+            withAnimation(.interpolatingSpring(stiffness: 5, damping: 1)) {
+                animationAmount += 360
             }
-            .padding(40)
-            .background(.red)
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .scaleEffect(animationAmount)
         }
+        .padding(50)
+        .background(.red)
+        .foregroundColor(.white)
+        .clipShape(Circle())
+        .rotation3DEffect(.degrees(animationAmount), axis: (x: 1, y: 0, z: 0))
     }
 }
 
