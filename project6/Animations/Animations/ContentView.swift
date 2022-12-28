@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var animationAmount = 0.0
+    @State private var enabled = false
     
     var body: some View {
         Button("Tap Me") {
-            // 상태 변형의 결과로 발생하는 변경 사항에 애니메이션 효과를 주도록 명시적 방법
-            withAnimation(.interpolatingSpring(stiffness: 5, damping: 1)) {
-                animationAmount += 360
-            }
+            enabled.toggle()
         }
-        .padding(50)
-        .background(.red)
+        .frame(width: 200, height: 200)
+        .background(enabled ? .blue : .red)
+        .animation(nil, value: enabled) // nil로 설정함으로서 애니메이션 컬러 변경에 따른 애니메이션 제거
         .foregroundColor(.white)
-        .clipShape(Circle())
-        .rotation3DEffect(.degrees(animationAmount), axis: (x: 1, y: 0, z: 0))
+        .clipShape(RoundedRectangle(cornerRadius: enabled ? 60 : 0))
+        // 변경 내용에 대한 개별적인 애니메이션 효과 적용 가능
+        .animation(.interpolatingSpring(stiffness: 10, damping: 1), value: enabled)
     }
 }
 
