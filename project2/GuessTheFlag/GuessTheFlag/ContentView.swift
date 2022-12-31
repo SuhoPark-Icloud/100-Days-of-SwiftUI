@@ -37,7 +37,9 @@ struct ContentView: View {
     @State private var isWrong = false
     @State private var isGameCompleted = false
     
-    let maxRound = 8
+    @State private var selectedFlag = -1
+    
+    private let maxRound = 8
     @State private var round = 1
     
     private let correctScore = 10
@@ -70,14 +72,22 @@ struct ContentView: View {
                             .font(.subheadline.weight(.heavy))
                         Text(countries[correctAnswer])
                             .font(.largeTitle.weight(.semibold))
-                        
                     }
                     
                     ForEach(0..<3) { number in
                         Button {
-                            flagTapped(number)
+                            withAnimation {
+                                flagTapped(number)
+                            }
                         } label: {
                             FlagImage(country: countries[number])
+                                .rotation3DEffect(
+                                    .degrees(selectedFlag == number
+                                             ? 360 : 0 ),
+                                    axis: (x: 0.0, y: 0.1, z: 0.0)
+                                )
+                                .opacity((selectedFlag == number || selectedFlag == -1) ? 1 : 0.25)
+                                .scaleEffect((selectedFlag == number || selectedFlag == -1) ? 1 : 0.80)
                         }
                     }
                 }
@@ -129,7 +139,8 @@ struct ContentView: View {
     
     func flagTapped(_ number: Int) {
         selectedCountry = countries[number]
-
+        selectedFlag = number
+        
         if number == correctAnswer {
             isCorrect = true
         } else {
@@ -149,6 +160,7 @@ struct ContentView: View {
     
     func prepareForNextRound() {
         round += 1
+        selectedFlag = -1
         
         if !isGameComplete() {
             countries.shuffle()
