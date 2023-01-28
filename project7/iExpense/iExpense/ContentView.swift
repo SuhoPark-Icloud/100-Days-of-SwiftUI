@@ -8,32 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var numbers = [Int]()
-    @State private var currentNumber = 1
+//    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+    
+    // UserDefaults에 대한 직접적인 접근 대신 @AppStorage를 사용
+    // @State의 역할과 코드를 더 단순하게 만들 수 있다는 점에서 UserDefaults를 완전히 대체할 수 있다.
+    @AppStorage("tapCount") private var tapCount = 0
     
     var body: some View {
-        NavigationView {
-            VStack {
-                List {
-                    ForEach(numbers, id: \.self) {
-                        Text("Row \($0)")
-                    }
-                    .onDelete(perform: removeRows)
-                }
-                
-                Button("Add Number") {
-                    numbers.append(currentNumber)
-                    currentNumber += 1
-                }
-            }
-            .toolbar {
-                EditButton()
-            }
+        Button("Tap count: \(tapCount)") {
+            tapCount += 1
+//            UserDefaults.standard.set(self.tapCount, forKey: "Tap")
         }
-    }
-    
-    func removeRows(at offsets: IndexSet) {
-        numbers.remove(atOffsets: offsets)
     }
 }
 
