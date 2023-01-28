@@ -7,17 +7,27 @@
 
 import SwiftUI
 
+// Codable 프로토콜을 준수하게 함으로써 JSON으로의 형변환을 지원하게 된다.
+// Codable = Decodable & Encodable
+struct User: Codable {
+    let firstName: String
+    let lastName: String
+}
+
 struct ContentView: View {
-//    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
-    
-    // UserDefaults에 대한 직접적인 접근 대신 @AppStorage를 사용
-    // @State의 역할과 코드를 더 단순하게 만들 수 있다는 점에서 UserDefaults를 완전히 대체할 수 있다.
-    @AppStorage("tapCount") private var tapCount = 0
+    @State private var user = User(firstName: "Suho", lastName: "Park")
     
     var body: some View {
-        Button("Tap count: \(tapCount)") {
-            tapCount += 1
-//            UserDefaults.standard.set(self.tapCount, forKey: "Tap")
+        Button("Save User") {
+            let encoder = JSONEncoder()
+            
+            // JSONEncoder에 의해 data라는 포맷으로 변환되는데,
+            // 이는 UserDefaults에 저장할 수 있는 타입이다.
+            if let data = try? encoder.encode(user) {
+                UserDefaults.standard.set(data, forKey: "UserData")
+            }
+            
+            // 향후 다시 사용하고 싶으면 JSONDecoder를 사용해야 한다.
         }
     }
 }
