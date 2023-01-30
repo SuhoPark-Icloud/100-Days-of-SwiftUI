@@ -14,21 +14,45 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(expenses.items) { item in
-                    HStack {
-                        VStack (alignment: .leading) {
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
+                Section {
+                    ForEach(expenses.items.filter { $0.type == "Personal" }) { item in
+                        HStack {
+                            VStack (alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            
+                            Spacer()
+                            
+                            Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                                .foregroundColor(self.getTextColor(amount: item.amount))
                         }
-                        
-                        Spacer()
-                        
-                        Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            .foregroundColor(self.getTextColor(amount: item.amount))
                     }
+                    .onDelete(perform: removePersonalExpenses)
+                } header: {
+                    Text("Personal")
                 }
-                .onDelete(perform: removeItems)
+                
+                Section {
+                    ForEach(expenses.items.filter { $0.type == "Business" }) { item in
+                        HStack {
+                            VStack (alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            
+                            Spacer()
+                            
+                            Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                                .foregroundColor(self.getTextColor(amount: item.amount))
+                        }
+                    }
+                    .onDelete(perform: removeBusinessExpenses)
+                } header: {
+                    Text("Business")
+                }
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -44,8 +68,26 @@ struct ContentView: View {
         }
     }
     
-    func removeItems(at offsets: IndexSet) {
-        expenses.items.remove(atOffsets: offsets)
+    func removePersonalExpenses(at offsets: IndexSet) {
+        let personalExpenses = expenses.items.filter{ $0.type == "Personal" }
+        let values = offsets.map { personalExpenses[$0] }
+        
+        for value in values {
+            expenses.items.removeAll {
+                $0.id == value.id
+            }
+        }
+    }
+    
+    func removeBusinessExpenses(at offsets: IndexSet) {
+        let businessExpenses = expenses.items.filter{ $0.type == "Business" }
+        let values = offsets.map { businessExpenses[$0] }
+        
+        for value in values {
+            expenses.items.removeAll {
+                $0.id == value.id
+            }
+        }
     }
     
     func getTextColor(amount: Double) -> Color {
