@@ -7,17 +7,35 @@
 
 import SwiftUI
 
+struct CustomText: View {
+    let text: String
+    
+    var body: some View {
+        Text(text)
+    }
+    
+    init(_ text: String) {
+        print("Creating a new CustomText \(text)")
+        self.text = text
+    }
+}
+
 struct ContentView: View {
     var body: some View {
-        GeometryReader { geo in
-            Image("Example")
-                .resizable()
-                .scaledToFit()
-                .frame(width: geo.size.width * 0.8)
-                .frame(width: geo.size.width, height: geo.size.height) // view를 중앙에 두기 위해 사용
-            // height를 생략할 수 있음
-            // -> 화면 크기, 그 비율, 사진의 비율을 알기 때문에 자동 선택됨
+        ScrollView() {
+            LazyVStack(spacing: 10) {
+                ForEach(0..<100) {
+                    CustomText("Item \($0)")
+                        .font(.title)
+                }
+            }
+            .frame(maxWidth: .infinity) // 스크롤바가 화면 끝에 오도록 설정
         }
+        // 아래 코드로 가로로 스크롤하는 view도 생성 가능
+//        ScrollView(.horizontal) {
+//            LazyHStack(spacing: 10) {
+//            }
+//        }
     }
 }
 
