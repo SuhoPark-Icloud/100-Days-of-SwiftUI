@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    let astronauts = Bundle.main.decode("astronauts.json")
+    // decode가 generic method이기 때문에 명시적 타입 지정 필요
+    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
+    let missions: [Mission] = Bundle.main.decode("missions.json")
     
     var body: some View {
-        Text("\(astronauts.count)")
+        VStack {
+            Text("\(astronauts.count)")
+            Text("\(missions.count)")
+        }
     }
 }
 
