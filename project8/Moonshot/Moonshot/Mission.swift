@@ -14,7 +14,19 @@ struct Mission: Codable, Identifiable {
     }
     
     let id: Int
-    let launchDate: String? // 존재하지 않을 수 있는 타입은 옵셔널로 지정해야 함
+    let launchDate: Date? // 존재하지 않을 수 있는 타입은 옵셔널로 지정해야 함
     let crew: [CrewRole]
     let description: String
+    
+    var displayName: String {
+        "Apollo \(id)"
+    }
+    
+    var image: String {
+        "apollo\(id)"
+    }
+    
+    var formattedLaunchDate: String {
+        launchDate?.formatted(date: .abbreviated, time: .omitted) ?? "N/A"
+    }
 }

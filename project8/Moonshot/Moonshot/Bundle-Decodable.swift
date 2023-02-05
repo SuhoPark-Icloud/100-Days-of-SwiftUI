@@ -21,6 +21,13 @@ extension Bundle {
         
         let decoder = JSONDecoder()
         
+        // json에서 작성된 날짜의 형태가 무엇인지 미리 지정하여
+        // 단순 String이 아닌 Date 타입임을 명시할 수 있음
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        
+        
         guard let loaded = try? decoder.decode(T.self, from: data) else {
             fatalError("Failed to decode \(file) from bundle.")
         }
