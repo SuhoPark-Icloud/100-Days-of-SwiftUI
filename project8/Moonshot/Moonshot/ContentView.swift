@@ -8,30 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    let layout = [
-        // 동적 크기 지정 가능
-        // 화면 크기가 변화됨에 따라 열 개수도 바뀔 수 있음
-        GridItem(.adaptive(minimum: 80, maximum: 120))
-    ]
+    let astronauts = Bundle.main.decode("astronauts.json")
     
     var body: some View {
-        // 세로 스크롤 버전
-        ScrollView {
-            LazyVGrid(columns: layout) {
-                ForEach(1..<1000) {
-                    Text("Item \($0)")
-                }
-            }
-        }
-        
-        // 가로 스크롤 버전
-//        ScrollView(.horizontal) {
-//            LazyHGrid(rows: layout) {
-//                ForEach(0..<1000) {
-//                    Text("Item \($0)")
-//                }
-//            }
-//        }
+        Text("\(astronauts.count)")
     }
 }
 
