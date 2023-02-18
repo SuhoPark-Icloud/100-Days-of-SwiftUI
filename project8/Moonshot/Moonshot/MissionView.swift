@@ -26,6 +26,13 @@ struct MissionView: View {
                         .frame(maxWidth: geometry.size.width * 0.6)
                         .padding(.top)
                     
+                    HStack {
+                        Text("Launch Date:")
+                        Text(mission.formattedLaunchDate)
+                    }
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.5))
+                    
                     // VStack 내부에 VStack을 두면서
                     // 개별적인 alignment를 적용할 수 있다.
                     VStack(alignment: .leading) {
