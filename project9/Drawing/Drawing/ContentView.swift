@@ -7,45 +7,58 @@
 
 import SwiftUI
 
-// InsettableShape: 안쪽으로 줄어드는 형태의 삽입 가능한 Shape
-struct Arc: InsettableShape {
-    var startAngle: Angle
-    var endAngle: Angle
-    var clockwise: Bool
-    var insetAmount = 0.0
-
-    func path(in rect: CGRect) -> Path {
-        let rotationAdjustment = Angle.degrees(90)
-        let modifiedStart = startAngle - rotationAdjustment
-        let modifiedEnd = endAngle - rotationAdjustment
-
-        var path = Path()
-        // InsettableShape를 위해 radius 부분 수정
-        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2 - insetAmount, startAngle: modifiedStart, endAngle: modifiedEnd, clockwise: !clockwise)
-
-        return path
-    }
+struct Flower: Shape {
+    // 이 꽃잎을 중앙에서 얼마나 멀리 이동시킬지?
+    var petalOffset: Double = -20
     
-    // InsettableShape protocol 준수를 위해 필요
-    func inset(by amount: CGFloat) -> some InsettableShape {
-        var arc = self
-        arc.insetAmount += amount
-        return arc
+    // 각 꽃잎을 만드는 폭
+    var petalWidth: Double = 100
+    
+    func path(in rect: CGRect) -> Path {
+        // 모든 꽃잎을 담을 Path
+        var path = Path()
+        
+        for number in stride(from: 0, to: Double.pi * 2, by: Double.pi / 8) {
+            // number만큼 꽃잎 회전
+            let rotation = CGAffineTransform(rotationAngle: number)
+            
+            // 꽃잎을 이 view의 중심으로 이동
+            let position = rotation.concatenating(CGAffineTransform(translationX: rect.width / 2, y: rect.height / 2))
+            
+            // 속성과 고정 Y 및 높이를 사용하여 이 꽃잎의 경로를 만듭니다.
+            let originalPetal = Path(ellipseIn: CGRect(x: petalOffset, y: 0, width: petalWidth, height: rect.width / 2))
+            
+            // 회전/위치 변환을 꽃잎에 적용
+            let rotatedPetal = originalPetal.applying(position)
+            
+            // 기본 경로에 추가
+            path.addPath(rotatedPetal)
+            
+        }
+        
+        // 이제 기본 경로를 다시 보냅니다.
+        return path
     }
 }
 
 struct ContentView: View {
+    @State private var petalOffset = -20.0
+    @State private var petalWidth = 100.0
+    
     var body: some View {
-//        // 크기를 지정하지 않은 shape 호출은 화면을 최대한 가득 채우려고 한다
-//        Circle()
-//        // 단순 stroke는 두꺼운 선을 그리기 때문에 선의 일부가 화면 밖으로 빠져나간다
-////            .stroke(.blue, lineWidth: 40)
-//        // 선의 두께를 만들 때 중심보다는 원 내부 공간을 사용
-//            .strokeBorder(.blue, lineWidth: 40)
-        Arc(startAngle: .degrees(-90), endAngle: .degrees(90), clockwise: true)
-        // InsettableShape를 준수하게 됨으로써 stroke vs strokeBorder 모두 사용 가능하게 됨
-//            .stroke(.blue, lineWidth: 40)
-            .strokeBorder(.blue, lineWidth: 40)
+        VStack {
+            Flower(petalOffset: petalOffset, petalWidth: petalWidth)
+            // FillStyle을 사용하여 even-odd rule을 쉽게 적용할 수 있다.
+                .fill(.red, style: FillStyle(eoFill: true))
+            
+            Text("Offset")
+            Slider(value: $petalOffset, in: -40...40)
+                .padding([.horizontal, .bottom])
+            
+            Text("Width")
+            Slider(value: $petalWidth, in: 0...100)
+                .padding(.horizontal)
+        }
     }
 }
 
