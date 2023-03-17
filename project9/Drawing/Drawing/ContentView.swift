@@ -7,54 +7,30 @@
 
 import SwiftUI
 
-struct ColorCyclingCircle: View {
-    var amount = 0.0
-    var steps = 100
-    
-    var body: some View {
-        ZStack {
-            ForEach(0..<steps) { value in
-                Circle()
-                    .inset(by: Double(value))
-                    .strokeBorder(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                color(for: value, brightness: 1),
-                                color(for: value, brightness: 0.5)
-                            ]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        ),
-                        lineWidth: 2
-                    )
-            }
-        }
-        // 이것은 SwiftUI가 훨씬 빠른 단일 렌더링 출력으로 화면에 다시 넣기 전에 뷰의 내용을 오프스크린 이미지로 렌더링해야 한다고 알려줌
-        // 성능을 위해 매우 좋은 수정자이나, 남발하면 SwiftUI 자체의 성능이 나빠질 수 있음
-        .drawingGroup()
-    }
-    
-    func color(for value: Int, brightness: Double) -> Color {
-        var targetHue = Double(value) / Double(steps) + amount
-        
-        if targetHue > 1 {
-            targetHue -= 1
-        }
-        
-        return Color(hue: targetHue, saturation: 1, brightness: brightness)
-    }
-}
-
 struct ContentView: View {
-    @State private var colorCycle = 0.0
+    @State private var amount = 0.3
     
     var body: some View {
+        // blendMode(.multiply)는 일반적이라 다른 대안이 있다.
+//        ZStack {
+//            Image("PaulHudson")
+//
+//            Rectangle()
+//                .fill(.red)
+//                .blendMode(.multiply)
+//        }
+//        .frame(width: 400, height: 500)
+//        .clipped()
         VStack {
-            ColorCyclingCircle(amount: colorCycle)
-                .frame(width: 300, height: 300)
+            Image("PaulHudson")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .saturation(amount)
+                .blur(radius: (1 - amount) * 20)
             
-            Slider(value: $colorCycle)
-            
+            Slider(value: $amount)
+                .padding()
         }
     }
 }
