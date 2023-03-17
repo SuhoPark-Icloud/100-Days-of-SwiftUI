@@ -11,7 +11,8 @@
 		8B5264F229C1F5C200C0B397 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5264F129C1F5C200C0B397 /* ContentView.swift */; };
 		8B5264F429C1F5C300C0B397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B5264F329C1F5C300C0B397 /* Assets.xcassets */; };
 		8B5264F729C1F5C300C0B397 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B5264F629C1F5C300C0B397 /* Preview Assets.xcassets */; };
-		8BC95C7429C4B4E900AAEF16 /* ThreeCircles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC95C7329C4B4E900AAEF16 /* ThreeCircles.swift */; };
+		8BC95C7429C4B4E900AAEF16 /* ThreeCirclesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC95C7329C4B4E900AAEF16 /* ThreeCirclesView.swift */; };
+		8BC95C7829C4B9E800AAEF16 /* TrapezoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC95C7729C4B9E800AAEF16 /* TrapezoidView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,7 +21,8 @@
 		8B5264F129C1F5C200C0B397 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8B5264F329C1F5C300C0B397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B5264F629C1F5C300C0B397 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8BC95C7329C4B4E900AAEF16 /* ThreeCircles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCircles.swift; sourceTree = "<group>"; };
+		8BC95C7329C4B4E900AAEF16 /* ThreeCirclesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCirclesView.swift; sourceTree = "<group>"; };
+		8BC95C7729C4B9E800AAEF16 /* TrapezoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrapezoidView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +57,8 @@
 			children = (
 				8B5264EF29C1F5C200C0B397 /* DrawingApp.swift */,
 				8B5264F129C1F5C200C0B397 /* ContentView.swift */,
-				8BC95C7329C4B4E900AAEF16 /* ThreeCircles.swift */,
+				8BC95C7329C4B4E900AAEF16 /* ThreeCirclesView.swift */,
+				8BC95C7729C4B9E800AAEF16 /* TrapezoidView.swift */,
 				8B5264F329C1F5C300C0B397 /* Assets.xcassets */,
 				8B5264F529C1F5C300C0B397 /* Preview Content */,
 			);
@@ -142,7 +145,8 @@
 			files = (
 				8B5264F229C1F5C200C0B397 /* ContentView.swift in Sources */,
 				8B5264F029C1F5C200C0B397 /* DrawingApp.swift in Sources */,
-				8BC95C7429C4B4E900AAEF16 /* ThreeCircles.swift in Sources */,
+				8BC95C7429C4B4E900AAEF16 /* ThreeCirclesView.swift in Sources */,
+				8BC95C7829C4B9E800AAEF16 /* TrapezoidView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
