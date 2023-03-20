@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BA7C60F29C86AC000EE1460 /* TaylorSwiftSongsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA7C60E29C86AC000EE1460 /* TaylorSwiftSongsView.swift */; };
 		8BA839B229C6DC8B002DA5E0 /* CupcakeCornerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA839B129C6DC8B002DA5E0 /* CupcakeCornerApp.swift */; };
 		8BA839B429C6DC8B002DA5E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA839B329C6DC8B002DA5E0 /* ContentView.swift */; };
 		8BA839B629C6DC8C002DA5E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA839B529C6DC8C002DA5E0 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8BA7C60E29C86AC000EE1460 /* TaylorSwiftSongsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaylorSwiftSongsView.swift; sourceTree = "<group>"; };
 		8BA839AE29C6DC8B002DA5E0 /* CupcakeCorner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CupcakeCorner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA839B129C6DC8B002DA5E0 /* CupcakeCornerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CupcakeCornerApp.swift; sourceTree = "<group>"; };
 		8BA839B329C6DC8B002DA5E0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,6 +38,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8BA7C61029C86B3200EE1460 /* Practices */ = {
+			isa = PBXGroup;
+			children = (
+				8BA7C60E29C86AC000EE1460 /* TaylorSwiftSongsView.swift */,
+				8BCCA6A029C7138000A812D3 /* AsyncImageView.swift */,
+				8BCCA6A229C71B9C00A812D3 /* DisabledFormView.swift */,
+			);
+			path = Practices;
+			sourceTree = "<group>";
+		};
 		8BA839A529C6DC8B002DA5E0 = {
 			isa = PBXGroup;
 			children = (
@@ -55,10 +67,9 @@
 		8BA839B029C6DC8B002DA5E0 /* CupcakeCorner */ = {
 			isa = PBXGroup;
 			children = (
+				8BA7C61029C86B3200EE1460 /* Practices */,
 				8BA839B129C6DC8B002DA5E0 /* CupcakeCornerApp.swift */,
 				8BA839B329C6DC8B002DA5E0 /* ContentView.swift */,
-				8BCCA6A029C7138000A812D3 /* AsyncImageView.swift */,
-				8BCCA6A229C71B9C00A812D3 /* DisabledFormView.swift */,
 				8BA839B529C6DC8C002DA5E0 /* Assets.xcassets */,
 				8BA839B729C6DC8C002DA5E0 /* Preview Content */,
 			);
@@ -145,6 +156,7 @@
 			files = (
 				8BCCA6A329C71B9C00A812D3 /* DisabledFormView.swift in Sources */,
 				8BA839B429C6DC8B002DA5E0 /* ContentView.swift in Sources */,
+				8BA7C60F29C86AC000EE1460 /* TaylorSwiftSongsView.swift in Sources */,
 				8BA839B229C6DC8B002DA5E0 /* CupcakeCornerApp.swift in Sources */,
 				8BCCA6A129C7138000A812D3 /* AsyncImageView.swift in Sources */,
 			);
