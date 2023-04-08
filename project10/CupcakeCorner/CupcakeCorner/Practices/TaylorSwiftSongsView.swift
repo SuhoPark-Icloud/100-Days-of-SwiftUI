@@ -29,6 +29,8 @@ struct TaylorSwiftSongsView: View {
                     Text(item.collectionName)
                 }
             }
+            // .task() modifier는 비동기 함수를 호출할 수 있다.
+            // .onAppear()과 유사하나 onAppear은 비동기 함수 호출이 불가
             .task {
                 await loadData()
             }
