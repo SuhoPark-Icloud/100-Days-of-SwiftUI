@@ -11,6 +11,7 @@
 		8B50B28C29E1C39B005AE0E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50B28B29E1C39B005AE0E1 /* ContentView.swift */; };
 		8B50B28E29E1C39C005AE0E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B50B28D29E1C39C005AE0E1 /* Assets.xcassets */; };
 		8B50B29129E1C39C005AE0E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B50B29029E1C39C005AE0E1 /* Preview Assets.xcassets */; };
+		8B50B29929E2DC04005AE0E1 /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50B29829E2DC04005AE0E1 /* Binding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		8B50B28B29E1C39B005AE0E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8B50B28D29E1C39C005AE0E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B50B29029E1C39C005AE0E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8B50B29829E2DC04005AE0E1 /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		8B50B28829E1C39B005AE0E1 /* Bookworm */ = {
 			isa = PBXGroup;
 			children = (
+				8B50B29729E2DBF2005AE0E1 /* Practices */,
 				8B50B28929E1C39B005AE0E1 /* BookwormApp.swift */,
 				8B50B28B29E1C39B005AE0E1 /* ContentView.swift */,
 				8B50B28D29E1C39C005AE0E1 /* Assets.xcassets */,
@@ -65,6 +68,14 @@
 				8B50B29029E1C39C005AE0E1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8B50B29729E2DBF2005AE0E1 /* Practices */ = {
+			isa = PBXGroup;
+			children = (
+				8B50B29829E2DC04005AE0E1 /* Binding.swift */,
+			);
+			path = Practices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B50B28C29E1C39B005AE0E1 /* ContentView.swift in Sources */,
+				8B50B29929E2DC04005AE0E1 /* Binding.swift in Sources */,
 				8B50B28A29E1C39B005AE0E1 /* BookwormApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
