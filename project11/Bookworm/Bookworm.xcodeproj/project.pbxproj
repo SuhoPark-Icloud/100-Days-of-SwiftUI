@@ -16,6 +16,7 @@
 		8B92A4B429E2E8AE00158A76 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92A4B329E2E8AE00158A76 /* CoreData.swift */; };
 		8B92A4B729E2E97300158A76 /* Bookworm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8B92A4B529E2E97300158A76 /* Bookworm.xcdatamodeld */; };
 		8B92A4B929E2E9E800158A76 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92A4B829E2E9E800158A76 /* DataController.swift */; };
+		8B92A4BB29E4030200158A76 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92A4BA29E4030200158A76 /* AddBookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		8B92A4B329E2E8AE00158A76 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		8B92A4B629E2E97300158A76 /* Bookworm.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bookworm.xcdatamodel; sourceTree = "<group>"; };
 		8B92A4B829E2E9E800158A76 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		8B92A4BA29E4030200158A76 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				8B50B29729E2DBF2005AE0E1 /* Practices */,
 				8B50B28929E1C39B005AE0E1 /* BookwormApp.swift */,
 				8B50B28B29E1C39B005AE0E1 /* ContentView.swift */,
+				8B92A4BA29E4030200158A76 /* AddBookView.swift */,
 				8B92A4B529E2E97300158A76 /* Bookworm.xcdatamodeld */,
 				8B92A4B829E2E9E800158A76 /* DataController.swift */,
 				8B50B28D29E1C39C005AE0E1 /* Assets.xcassets */,
@@ -163,6 +166,7 @@
 				8B92A4B929E2E9E800158A76 /* DataController.swift in Sources */,
 				8B50B28C29E1C39B005AE0E1 /* ContentView.swift in Sources */,
 				8B92A4B729E2E97300158A76 /* Bookworm.xcdatamodeld in Sources */,
+				8B92A4BB29E4030200158A76 /* AddBookView.swift in Sources */,
 				8B50B29929E2DC04005AE0E1 /* Binding.swift in Sources */,
 				8B50B28A29E1C39B005AE0E1 /* BookwormApp.swift in Sources */,
 				8B50B29B29E2E170005AE0E1 /* MulitlineTextEditor.swift in Sources */,
