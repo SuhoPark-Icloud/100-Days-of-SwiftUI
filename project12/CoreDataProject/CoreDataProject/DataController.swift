@@ -1,15 +1,14 @@
 //
 //  DataController.swift
-//  Bookworm
+//  CoreDataProject
 //
-//  Created by 박수호 on 2023/04/09.
+//  Created by 박수호 on 2023/04/16.
 //
 
 import CoreData
 import Foundation
 
 class DataController: ObservableObject {
-    // NS: NeXTSTEP, 스티브 잡스가 1997년에 돌아왔을 때 인수한 기업
     let container = NSPersistentContainer(name: "CoreDataProject")
     
     init() {
