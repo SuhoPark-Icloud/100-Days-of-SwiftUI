@@ -15,6 +15,7 @@
 		8BFFBC952AA9978C00CA7B19 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFBC942AA9978C00CA7B19 /* MeView.swift */; };
 		8BFFBC972AA9997B00CA7B19 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFBC962AA9997B00CA7B19 /* Prospect.swift */; };
 		8BFFBC9A2AA9A65200CA7B19 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8BFFBC992AA9A65200CA7B19 /* CodeScanner */; };
+		8BFFBC9C2AADA58400CA7B19 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFFBC9B2AADA58400CA7B19 /* ImageSaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8BFFBC922AA9978200CA7B19 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		8BFFBC942AA9978C00CA7B19 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		8BFFBC962AA9997B00CA7B19 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
+		8BFFBC9B2AADA58400CA7B19 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				8BFFBC922AA9978200CA7B19 /* ProspectsView.swift */,
 				8BFFBC962AA9997B00CA7B19 /* Prospect.swift */,
 				8BFFBC942AA9978C00CA7B19 /* MeView.swift */,
+				8BFFBC9B2AADA58400CA7B19 /* ImageSaver.swift */,
 				8BEF5A082AA7269C0018E000 /* Assets.xcassets */,
 				8BEF5A0A2AA7269C0018E000 /* Preview Content */,
 			);
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BFFBC952AA9978C00CA7B19 /* MeView.swift in Sources */,
+				8BFFBC9C2AADA58400CA7B19 /* ImageSaver.swift in Sources */,
 				8BFFBC972AA9997B00CA7B19 /* Prospect.swift in Sources */,
 				8BFFBC932AA9978200CA7B19 /* ProspectsView.swift in Sources */,
 				8BEF5A072AA7269A0018E000 /* ContentView.swift in Sources */,
@@ -291,6 +295,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -321,6 +326,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
