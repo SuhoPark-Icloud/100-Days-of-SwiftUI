@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.accessibilityReduceMotion) var reduceMotion
-    @State private var scale = 1.0
+    @Environment(\.accessibilityReduceTransparency) var reduceTransparency
 
     var body: some View {
         Text("Hello, World!")
-            .scaleEffect(scale)
-            .onTapGesture {
-                withOptionalAnimation {
-                    scale *= 1.5
-                }
-            }
+            .padding()
+            .background(reduceTransparency ? .black : .black.opacity(0.5))
+            .foregroundColor(.white)
+            .clipShape(Capsule())
     }
 
     // 모션 줄이기 옵션에 따라 자동 적용
