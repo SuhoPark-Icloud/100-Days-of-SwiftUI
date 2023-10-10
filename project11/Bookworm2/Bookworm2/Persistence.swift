@@ -13,11 +13,17 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for i in 0 ..< 10 {
-            let newItem = Student(context: viewContext)
-            newItem.id = UUID()
-            newItem.name = "Suho Park \(i)"
+
+        for i in 0 ..< 100 {
+            let newBook = Book(context: viewContext)
+            newBook.id = UUID()
+            newBook.title = "Harry Poter \(i)"
+            newBook.author = "조엔 K 롤링"
+            newBook.rating = Int16(i % 5)
+            newBook.genre = "Fantasy"
+            newBook.review = "최고의 판타지"
         }
+
         do {
             try viewContext.save()
         } catch {
