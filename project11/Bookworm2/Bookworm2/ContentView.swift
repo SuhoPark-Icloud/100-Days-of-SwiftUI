@@ -10,7 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: []) private var books: FetchedResults<Book>
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\Book.title),
+        SortDescriptor(\Book.author)
+    ]) private var books: FetchedResults<Book>
 
     @State private var showingAddScreen = false
 
