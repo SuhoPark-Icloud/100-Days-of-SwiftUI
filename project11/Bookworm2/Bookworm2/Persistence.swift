@@ -14,7 +14,7 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
 
-        for i in 0 ..< 100 {
+        for i in 0 ..< 10 {
             let newBook = Book(context: viewContext)
             newBook.id = UUID()
             newBook.title = "Harry Poter \(i)"
