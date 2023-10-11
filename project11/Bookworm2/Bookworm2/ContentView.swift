@@ -37,21 +37,35 @@ struct ContentView: View {
                         }
                     }
                 }
+                .onDelete(perform: deleteBooks)
             }
             .navigationTitle("Bookworm")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showingAddScreen.toggle()
                     } label: {
                         Label("Add Book", systemImage: "plus")
                     }
                 }
+                ToolbarItem(placement: .topBarLeading) {
+                    EditButton()
+                }
             }
             .sheet(isPresented: $showingAddScreen) {
                 AddBookView()
             }
         }
+    }
+
+    func deleteBooks(at offsets: IndexSet) {
+        for offset in offsets {
+            let book = books[offset]
+
+            viewContext.delete(book)
+        }
+
+        try? viewContext.save()
     }
 }
 
