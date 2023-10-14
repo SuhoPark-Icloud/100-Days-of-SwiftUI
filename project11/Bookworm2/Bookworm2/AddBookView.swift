@@ -11,10 +11,12 @@ struct AddBookView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
+    @State private var showingAlert = false
+
     @State private var title = ""
     @State private var author = ""
     @State private var rating = 3
-    @State private var genre = ""
+    @State private var genre = "Fantasy"
     @State private var review = ""
     let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
 
@@ -52,10 +54,19 @@ struct AddBookView: View {
                         try? viewContext.save()
                         dismiss()
                     }
+                    .disabled(!isSaveButtonEnabled())
                 }
             }
             .navigationTitle("Add Book")
         }
+    }
+
+    func isSaveButtonEnabled() -> Bool {
+        let isTitle = !title.isEmpty
+        let isAuthor = !author.isEmpty
+
+        if isTitle && isAuthor { return true }
+        else { return false }
     }
 }
 
