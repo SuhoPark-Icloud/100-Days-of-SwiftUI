@@ -19,7 +19,7 @@ struct PersistenceController {
             newBook.id = UUID()
             newBook.title = "Harry Poter \(i)"
             newBook.author = "조엔 K 롤링"
-            newBook.rating = Int16(i % 5)
+            newBook.rating = Int16(i % 5) + 1
             newBook.genre = "Fantasy"
             newBook.review = "최고의 판타지"
         }
