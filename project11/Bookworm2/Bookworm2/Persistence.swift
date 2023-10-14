@@ -22,6 +22,7 @@ struct PersistenceController {
             newBook.rating = Int16(i % 5) + 1
             newBook.genre = "Fantasy"
             newBook.review = "최고의 판타지"
+            newBook.date = Date.now
         }
 
         do {

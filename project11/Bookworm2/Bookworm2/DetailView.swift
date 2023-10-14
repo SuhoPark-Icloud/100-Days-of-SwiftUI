@@ -41,6 +41,10 @@ struct DetailView: View {
 
             RatingView(rating: .constant(Int(book.rating)))
                 .font(.largeTitle)
+
+            Text(book.date?.formatted(date: .long, time: .shortened) ?? "No date")
+                .font(.caption)
+                .padding()
         }
         .alert("Delete book",
                isPresented: $showingDeleteAlert,
@@ -76,6 +80,7 @@ struct DetailView: View {
     book.genre = "Fantasy"
     book.rating = 4
     book.review = "This was a great book; I really enjoyed it."
+    book.date = Date.now
 
     return DetailView(book: book).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
