@@ -13,19 +13,35 @@ struct Student: Hashable {
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: []) private var wizards: FetchedResults<Wizard>
 
     let students = [Student(name: "Harry Potter"), Student(name: "Hermione Granger")]
 
     var body: some View {
-        let movie = Movie(context: viewContext)
+        VStack {
+            List(wizards, id: \.self) { wizard in
+                Text(wizard.name ?? "Unknown")
+            }
 
-        List(students, id: \.self) { student in
-            Text(student.name)
+            Button("Add") {
+                let wizard = Wizard(context: viewContext)
+                wizard.name = "Harry Potter"
+            }
+
+            Button("Save") {
+                do {
+                    if viewContext.hasChanges {
+                        try viewContext.save()
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
 }
 
 #Preview {
     ContentView()
-//        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

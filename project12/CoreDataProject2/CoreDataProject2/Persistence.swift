@@ -14,6 +14,11 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
 
+        for i in 0 ..< 6 {
+            let newWizard = Wizard(context: viewContext)
+            newWizard.name = "Wizard #\(i)"
+        }
+
         do {
             try viewContext.save()
         } catch {
@@ -36,5 +41,6 @@ struct PersistenceController {
             }
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
     }
 }
