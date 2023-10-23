@@ -35,6 +35,18 @@ struct PersistenceController {
         ship4.name = "Executor"
         ship4.universe = "Star Wars"
 
+        let taylor = Singer(context: viewContext)
+        taylor.firstName = "Taylor"
+        taylor.lastName = "Swift"
+
+        let ed = Singer(context: viewContext)
+        ed.firstName = "Ed"
+        ed.lastName = "Sheeran"
+
+        let adele = Singer(context: viewContext)
+        adele.firstName = "Adele"
+        adele.lastName = "Adkins"
+
         do {
             try viewContext.save()
         } catch {
