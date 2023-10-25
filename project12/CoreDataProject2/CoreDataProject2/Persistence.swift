@@ -47,6 +47,30 @@ struct PersistenceController {
         adele.firstName = "Adele"
         adele.lastName = "Adkins"
 
+        let candy1 = Candy(context: viewContext)
+        candy1.name = "Mars"
+        candy1.origin = Country(context: viewContext)
+        candy1.origin?.shortName = "UK"
+        candy1.origin?.fullName = "United Kingdom"
+
+        let candy2 = Candy(context: viewContext)
+        candy2.name = "KitKat"
+        candy2.origin = Country(context: viewContext)
+        candy2.origin?.shortName = "UK"
+        candy2.origin?.fullName = "United Kingdom"
+
+        let candy3 = Candy(context: viewContext)
+        candy3.name = "Twix"
+        candy3.origin = Country(context: viewContext)
+        candy3.origin?.shortName = "UK"
+        candy3.origin?.fullName = "United Kingdom"
+
+        let candy4 = Candy(context: viewContext)
+        candy4.name = "Toblerone"
+        candy4.origin = Country(context: viewContext)
+        candy4.origin?.shortName = "CH"
+        candy4.origin?.fullName = "Switzerland"
+
         do {
             try viewContext.save()
         } catch {

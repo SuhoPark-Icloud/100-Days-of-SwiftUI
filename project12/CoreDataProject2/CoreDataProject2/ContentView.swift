@@ -5,24 +5,21 @@
 //  Created by Suho Park on 10/16/23.
 //
 
+import CoreData
 import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var lastNameFilter = "A"
+    @FetchRequest(sortDescriptors: []) private var countries: FetchedResults<Country>
 
     var body: some View {
-        VStack {
-            FilteredList(filterKey: "lastName", filterValue: lastNameFilter) { (singer: Singer) in
-                Text("\(singer.wrappedFirstName) \(singer.wrappedLastName)")
-            }
-
-            Button("Show A") {
-                lastNameFilter = "A"
-            }
-
-            Button("Show S") {
-                lastNameFilter = "S"
+        List {
+            ForEach(countries, id: \.self) { country in
+                Section(country.wrappedFullName) {
+                    ForEach(country.candyArray, id: \.self) { candy in
+                        Text(candy.wrappedName)
+                    }
+                }
             }
         }
     }
