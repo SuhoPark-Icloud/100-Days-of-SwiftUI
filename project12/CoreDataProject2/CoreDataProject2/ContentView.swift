@@ -10,15 +10,23 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: []) private var countries: FetchedResults<Country>
+
+    @State private var filterKey = "lastName"
+    @State private var filterValue = "S"
 
     var body: some View {
-        List {
-            ForEach(countries, id: \.self) { country in
-                Section(country.wrappedFullName) {
-                    ForEach(country.candyArray, id: \.self) { candy in
-                        Text(candy.wrappedName)
-                    }
+        Form {
+            Section("Enter filter key") {
+                TextField("Filter key", text: $filterKey)
+            }
+
+            Section("Enter filter value") {
+                TextField("Filter value", text: $filterValue)
+            }
+
+            Section("Filtered results") {
+                FilteredList(filterKey: filterKey, filterValue: filterValue, predicateType: .biginsWith, sortDescriptor: []) { (singer: Singer) in
+                    Text("\(singer.wrappedFirstName) \(singer.wrappedLastName)")
                 }
             }
         }

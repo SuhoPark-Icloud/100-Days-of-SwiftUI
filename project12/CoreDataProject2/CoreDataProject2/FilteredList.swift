@@ -15,20 +15,34 @@ struct FilteredList<T: NSManagedObject, Content: View>: View {
     // we'll call this once for each item in the list
     let content: (T) -> Content
 
+    private let predicate: String
+
     var body: some View {
         List(fetchRequest, id: \.self) { item in
             self.content(item)
         }
     }
 
-    init(filterKey: String, filterValue: String, @ViewBuilder content: @escaping (T) -> Content) {
-        _fetchRequest = FetchRequest<T>(sortDescriptors: [], predicate: NSPredicate(format: "%K BEGINSWITH %@", filterKey, filterValue))
+    init(filterKey: String,
+         filterValue: String,
+         predicateType: PredicateTypes,
+         sortDescriptor: [NSSortDescriptor],
+         @ViewBuilder content: @escaping (T) -> Content)
+    {
+        predicate = "\(filterKey) \(predicateType.rawValue) '\(filterValue)'"
+        _fetchRequest = FetchRequest<T>(sortDescriptors: sortDescriptor, predicate: NSPredicate(format: predicate))
         self.content = content
+    }
+
+    enum PredicateTypes: String {
+        case inside = "IN"
+        case biginsWith = "BEGINSWITH"
+        case contains = "CONTAINS"
     }
 }
 
 #Preview {
-    FilteredList(filterKey: "lastName", filterValue: "A") { (singer: Singer) in
+    FilteredList(filterKey: "lastName", filterValue: "S", predicateType: .contains, sortDescriptor: []) { (singer: Singer) in
         Text("\(singer.wrappedFirstName) \(singer.wrappedLastName)")
     }
     .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
