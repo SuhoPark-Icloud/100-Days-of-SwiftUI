@@ -25,7 +25,11 @@ struct ContentView: View {
             }
 
             Section("Filtered results") {
-                FilteredList(filterKey: filterKey, filterValue: filterValue, predicateType: .biginsWith, sortDescriptor: []) { (singer: Singer) in
+                FilteredList(filterKey: filterKey,
+                             filterValue: filterValue,
+                             predicateType: .biginsWith,
+                             sortDescriptor: [NSSortDescriptor(key: "lastName", ascending: true)])
+                { (singer: Singer) in
                     Text("\(singer.wrappedFirstName) \(singer.wrappedLastName)")
                 }
             }
